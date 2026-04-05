@@ -1,0 +1,32 @@
+import pyautogui
+import time
+import random
+
+class UIAutomator:
+    def __init__(self):
+        # Set up a "fail-safe" (The Plug-Pull Mindset)
+        pyautogui.FAILSAFE = True 
+        self.is_running = True
+
+    def scan_screen(self, target_image):
+        # Use OpenCV/PyAutoGUI to find a button or icon
+        location = pyautogui.locateOnScreen(target_image, confidence=0.8)
+        return location
+
+    def execute_action(self, x, y):
+        # Human-like movement logic
+        pyautogui.moveTo(x + random.randint(-5, 5), y + random.randint(-5, 5), duration=0.5)
+        pyautogui.click()
+
+    def run_loop(self):
+        print("--- RPA ENGINE ACTIVE: PRESS CTRL+C TO EMERGENCY STOP ---")
+        while self.is_running:
+            # Logic: If 'Start' button found, click it
+            target = self.scan_screen('assets/target_btn.png')
+            if target:
+                self.execute_action(target.left, target.top)
+            time.sleep(random.uniform(1.5, 3.0))
+
+# Sandbox Test
+# bot = UIAutomator()
+# bot.run_loop()
