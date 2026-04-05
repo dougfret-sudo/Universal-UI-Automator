@@ -1,0 +1,2 @@
+pyautogui
+# Required for human-like UI automation
